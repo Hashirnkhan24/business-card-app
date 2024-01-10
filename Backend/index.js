@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import { connectDb, Card } from './db.js';
 import { cardData, updateCardData } from './types.js';
 
@@ -7,6 +8,7 @@ const app = express();
 dotenv.config();
 connectDb();
 app.use(express.json());
+app.use(cors());
 
 app.post('/card', async (req, res) => {
     const { name, description, interests } = req.body;

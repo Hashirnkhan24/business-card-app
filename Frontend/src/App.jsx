@@ -1,23 +1,20 @@
 import { useState } from "react"
 import { Card } from "./components/Card"
 import { CreateCard } from "./components/CreateCard"
+import axios from 'axios'
 
 function App() {
   const [showCreateCard, setShowCreateCard] = useState(false)
-  const cards = [{
-    name : "Goku",
-    description : "Strongest Mortal",
-    interests : [
-      "fighting",
-      "Eating"
-    ]
-  }, {
-    name : "Naruto",
-    description : "7th Hokage",
-    interests : [
-      "Ramen"
-    ]
-  }]
+  const [showCards, setShowCards] = useState([]);
+
+  // axios.get('http://localhost:8000/')
+  // .then((res) => {
+  //   setShowCards(res.data);
+  // })
+  // .catch(error => {
+  //   console.error('Error fetching data:', error);
+  // });
+
   function onAddCard() {
     setShowCreateCard(!showCreateCard)
   }
@@ -25,7 +22,7 @@ function App() {
     <>
       <div>
         <h1>Creating a Business card</h1>
-        <Card cards={cards}/>
+        <Card cards={showCards}/>
         <button onClick={onAddCard}>Create A Card</button>
         {
           showCreateCard && (

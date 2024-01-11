@@ -6,6 +6,7 @@ function EditCard({ id }) {
     const [interests, setInterests] = useState([]);
     const [socials, setSocials] = useState([]);
     const [saveCardbtn, setSaveCardbtn] = useState('Save Card')
+
     async function onEditCardHandle() {
         try {
             const response = await fetch('http://localhost:8000/updateCard', {

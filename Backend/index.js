@@ -70,6 +70,27 @@ app.put('/updateCard', async (req, res) => {
     }   
 })
 
+app.delete('/deleteCard', async(req, res) => {
+    try {
+        const cardId = req.body.id;
+        const deleteCard = await Card.deleteOne({ _id : cardId});
+
+        if(deleteCard.deletedCount > 0) {
+            res.status(200).json({
+                message : "Card deleted successfully"
+            }) 
+        } else {
+            res.status(404).json({
+                message : "Card not found"
+        })
+    }} catch (error) {
+        res.status(500).json({
+            message : "Internal Server Error"
+        })
+        console.log(error)
+    }
+})
+
 app.listen(process.env.PORT || 3000, () => {
     console.log('listening on port ', process.env.PORT || 3000);
 });

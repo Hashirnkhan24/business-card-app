@@ -6,6 +6,7 @@ import axios from 'axios'
 function App() {
   const [showCreateCard, setShowCreateCard] = useState(false)
   const [showCards, setShowCards] = useState([]);
+  const [displayCards, setDisplayCards] = useState(false);
 
   axios.get('http://localhost:8000/cards')
   .then((res) => {
@@ -15,20 +16,35 @@ function App() {
     console.error('Error fetching data:', error);
   });
 
+  function displayCardData() {
+
+  setDisplayCards(!displayCards);
+  }
+
   function onAddCard() {
     setShowCreateCard(!showCreateCard)
   }
   return(
     <>
     <div className="max-w-full mx-auto p-4 bg-white dark:bg-gray-900 border rounded-md shadow-md">
-      <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Anime Business Card</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
+      
+      <h1 className="text-2xl  font-bold text-gray-800 dark:text-white mb-4">Anime Business Card</h1>
+      <button
+        onClick={displayCardData}
+        className="bg-teal-500 hover:bg-teal-700 text-white m-4 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
+      >
+        {displayCards ? "Hide Cards" : "Show Cards"}
+      </button>
+    
+        {displayCards && (<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
         {showCards.map((card) => (
           <div key={card._id} className="bg-gray-100 dark:bg-gray-800 p-6 rounded-md shadow-md">
             <Card cards={[card]} />
           </div>
         ))}
-      </div>
+      </div>)}
+   
+      
 
       <button
         onClick={onAddCard}

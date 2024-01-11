@@ -22,9 +22,9 @@ function App() {
     <>
     <div className="max-w-full mx-auto p-4 bg-white dark:bg-gray-900 border rounded-md shadow-md">
       <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Anime Business Card</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
         {showCards.map((card) => (
-          <div key={card.name} className="bg-gray-100 dark:bg-gray-800 p-6 rounded-md shadow-md">
+          <div key={card._id} className="bg-gray-100 dark:bg-gray-800 p-6 rounded-md shadow-md">
             <Card cards={[card]} />
           </div>
         ))}

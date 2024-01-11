@@ -1,19 +1,20 @@
 import { useState } from "react";
 
-function CreateCard() {
+function EditCard({ id }) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [interests, setInterests] = useState([]);
     const [socials, setSocials] = useState([]);
-
-    async function onAddCardHandle() {
+    const [saveCardbtn, setSaveCardbtn] = useState('Save Card')
+    async function onEditCardHandle() {
         try {
-            const response = await fetch('http://localhost:8000/card', {
-                method: 'POST',
+            const response = await fetch('http://localhost:8000/updateCard', {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    id: id,
                     name: name,
                     description: description,
                     interests: interests,
@@ -25,8 +26,8 @@ function CreateCard() {
         } catch (error) {
             console.error('An error occurred while adding the card:', error);
         }
+        setSaveCardbtn("Card Saved")
     }
-
     return (
         <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md mb-8">
             <input
@@ -58,13 +59,13 @@ function CreateCard() {
                 className="w-full p-2 mb-4 border rounded-md focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             />
             <button
-                onClick={onAddCardHandle}
+                onClick={onEditCardHandle}
                 className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline "
             >
-                Add Card
+                {saveCardbtn}
             </button>
         </div>
     );
 }
 
-export { CreateCard };
+export { EditCard }

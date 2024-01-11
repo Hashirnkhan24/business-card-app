@@ -11,14 +11,15 @@ app.use(express.json());
 app.use(cors());
 
 app.post('/card', async (req, res) => {
-    const { name, description, interests } = req.body;
-    const parsedCardData = cardData.safeParse({ name, description, interests });
+    const { name, description, interests, socials } = req.body;
+    const parsedCardData = cardData.safeParse({ name, description, interests, socials });
 
     if(parsedCardData.success) {
         const userCard = await Card.create({
             name: name,
             description: description,
-            interests : interests || []
+            interests : interests || [],
+            socials : socials || []
         })
         res.status(200).json({
             message : "Card created successfully",
@@ -34,10 +35,10 @@ app.get('/cards', async (req, res) => {
 
 app.put('/updateCard', async (req, res) => {
     try {
-        const { id, name, description, interests } = req.body
-        const parsedUpdateCard = updateCardData.safeParse({ id, name, description, interests })
+        const { id, name, description, interests, socials } = req.body
+        const parsedUpdateCard = updateCardData.safeParse({ id, name, description, interests, socials })
 
-        if(!name && !description && !interests) {
+        if(!name && !description && !interests && !socials) {
             res.status(400).json({
                 message : "Atleast one field required for update"
             })
@@ -52,6 +53,7 @@ app.put('/updateCard', async (req, res) => {
             if (name) update.name = name;
             if ( description) update.description = description;
             if (interests) update.interests = interests;
+            if (socials) update.socials = socials;
 
             const result = await Card.updateOne(filter, update);
 

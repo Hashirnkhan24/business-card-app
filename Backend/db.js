@@ -21,6 +21,9 @@ const cardSchema = mongoose.Schema({
     },
     interests : {
         type : Array
+    },
+    socials : {
+        type : Array
     }
 })
 
